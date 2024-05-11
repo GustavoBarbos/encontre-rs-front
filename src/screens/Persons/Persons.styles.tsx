@@ -37,6 +37,9 @@ export const PersonsContainer = styled.div`
     color: blue;
     cursor: pointer;
   }
+  .loading-animation {
+    margin-top: 20px;
+  }
 
   .cards-container {
     display: grid;
@@ -83,6 +86,10 @@ export const PersonsContainer = styled.div`
       border-radius: 20px;
       text-align: center;
     }
+  }
+
+  .loading {
+    opacity: 0;
   }
 
   @media (min-width: 768px) {

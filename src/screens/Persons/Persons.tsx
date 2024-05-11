@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useSelector } from "react-redux";
+import { PropagateLoader } from 'react-spinners';
 import debounce from "lodash.debounce";
 import { useNavigate, useParams } from "react-router-dom";
 import { IUserState } from "@/interfaces/i-user";
@@ -14,6 +15,7 @@ const Persons = () => {
   const { id: personId } = useParams();
 
   const [data, setData] = useState<IPersonFound[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState<IPersonFound[] | null>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -65,12 +67,17 @@ const Persons = () => {
   }, [searchTerm, debouncedSearch]);
 
   useEffect(() => {
+    setLoading(true);
       getPersons(token, "", currentPage, limit).then((response) => {
         const { results , totalPages} = response;
         if (results) {
           setTotalPages(totalPages);
           setData(results);
           setFilteredData(results);
+
+          setTimeout(() => {
+            setLoading(false);
+          }, 1500);
         }
       });
   }, [token, currentPage, limit]);
@@ -129,11 +136,18 @@ const Persons = () => {
             onChange={handleSearchTermChange}
           />
         </div>
+        
+        {loading && (
+            <span className="loading-animation">
+              <PropagateLoader color="#000" />
+            </span>
+          )}
+
         <div className="cards-container">
-          {filteredData &&
+          {filteredData  &&
             filteredData.map((person, index) => (
               <div
-                className="card"
+                className={`card ${loading && "loading"}`}
                 key={index}
                 onClick={() => navigate(`/${person.id}`)}
               >

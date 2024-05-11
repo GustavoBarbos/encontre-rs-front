@@ -44,7 +44,7 @@ const HeaderResponsive = () => {
   return (
     <S.HeaderContainer>
       <div className="navbar">
-        <h2 onClick={() => redirectTo("/")}>Encontre SC</h2>
+        <h2 onClick={() => redirectTo("/")}>Encontre RS</h2>
         <IoMenu onClick={toggleSidebar} size={30} className="icon" />
       </div>
 

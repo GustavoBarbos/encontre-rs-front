@@ -67,6 +67,7 @@ export const RegisterPersonContainer = styled.div`
           padding: 10px;
           border-radius: 10px;
           max-width: 100%;
+          resize: none;
         }
 
         textarea {

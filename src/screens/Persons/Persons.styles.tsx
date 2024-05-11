@@ -108,7 +108,7 @@ export const ContainerOutside = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 2.5rem 0 1rem 0;
+    margin: 2.5rem 0;
     max-width: 90%;
     width: 80%;
     gap: 2px;
@@ -120,6 +120,7 @@ export const ContainerOutside = styled.div`
       background-color: #333;
       color: #fff;
       cursor: pointer;
+      min-width: 100px;
     }
 
     .disabled {

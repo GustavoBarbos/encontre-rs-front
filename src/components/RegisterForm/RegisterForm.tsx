@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { FirebaseError } from "firebase/app";
@@ -90,12 +90,13 @@ const RegisterForm = ({ toggleForm }: RegisterFormProps) => {
         </div>
         <div>
           <label htmlFor="contactForms">Formas de contato:</label>
-          <input
-            type="text"
-            id="contacts"
-            {...register("contacts", {
-              required: "Formas de contato são obrigatórias",
-            })}
+          <textarea
+              id="contacts"
+              {...register("contacts", {
+                required: "Formas de contato são obrigatórias",
+              })}
+              rows={10}
+              placeholder="Por favor, adicione todas as suas formas de contato para que a família possa entrar em contato com você."
           />
         </div>
         <button type="submit">

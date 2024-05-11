@@ -22,7 +22,7 @@ const Persons = () => {
   const [limit] = useState(10);
   const [modalOpen, setModalOpen] = useState(false);
   const [foundPerson, setFoundPerson] = useState<IPersonFound>();
-  const [alreadyFetched, setAlreadyFetched] = useState<boolean>(false);
+
   const navigate = useNavigate();
 
   const fetchPersons = useCallback(
@@ -65,9 +65,6 @@ const Persons = () => {
   }, [searchTerm, debouncedSearch]);
 
   useEffect(() => {
-    if (!alreadyFetched) {
-      setAlreadyFetched(true);
-
       getPersons(token, "", currentPage, limit).then((response) => {
         const { results , totalPages} = response;
         if (results) {
@@ -76,8 +73,7 @@ const Persons = () => {
           setFilteredData(results);
         }
       });
-    }
-  }, [token, currentPage, limit, alreadyFetched]);
+  }, [token, currentPage, limit]);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);

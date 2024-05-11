@@ -18,19 +18,19 @@ const Persons = () => {
   const [filteredData, setFilteredData] = useState<IPersonFound[] | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [limit] = useState(10);
   const [modalOpen, setModalOpen] = useState(false);
   const [foundPerson, setFoundPerson] = useState<IPersonFound>();
-
+  const [alreadyFetched, setAlreadyFetched] = useState<boolean>(false);
   const navigate = useNavigate();
-
-  let alreadyFetched = false;
 
   const fetchPersons = useCallback(
     async (term: string) => {
       const response = await getPersons(token, term, currentPage, limit);
-      const { results } = response;
+      const { results, totalPages } = response;
       if (results) {
+        setTotalPages(totalPages);
         setFilteredData(results);
       }
     },
@@ -66,17 +66,18 @@ const Persons = () => {
 
   useEffect(() => {
     if (!alreadyFetched) {
-      alreadyFetched = true;
+      setAlreadyFetched(true);
 
       getPersons(token, "", currentPage, limit).then((response) => {
-        const { results } = response;
+        const { results , totalPages} = response;
         if (results) {
+          setTotalPages(totalPages);
           setData(results);
           setFilteredData(results);
         }
       });
     }
-  }, [token, currentPage, limit]);
+  }, [token, currentPage, limit, alreadyFetched]);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
@@ -98,7 +99,7 @@ const Persons = () => {
     setModalOpen(false);
   };
 
-  const nextCurrentPageIsValid = data.length === limit;
+  const nextCurrentPageIsValid = currentPage < totalPages;
 
   return (
     <S.ContainerOutside>

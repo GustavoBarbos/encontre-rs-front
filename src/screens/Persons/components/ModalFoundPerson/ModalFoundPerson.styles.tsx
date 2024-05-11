@@ -45,6 +45,8 @@ export const ModalContainer = styled.div`
         border-radius: 8px;
         word-wrap: break-word;
         line-height: 1.5;
+        max-height: 200px;
+        overflow-y: auto;
       }
     }
 

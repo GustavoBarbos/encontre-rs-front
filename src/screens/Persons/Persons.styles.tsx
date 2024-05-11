@@ -39,6 +39,8 @@ export const PersonsContainer = styled.div`
   }
   .loading-animation {
     margin-top: 20px;
+    width: 100%;
+    text-align: center;
   }
 
   .cards-container {

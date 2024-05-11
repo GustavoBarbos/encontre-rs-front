@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useSelector } from "react-redux";
-import { PropagateLoader } from 'react-spinners';
+import { BeatLoader } from "react-spinners";
 import debounce from "lodash.debounce";
 import { useNavigate, useParams } from "react-router-dom";
 import { IUserState } from "@/interfaces/i-user";
@@ -147,7 +147,7 @@ const Persons = () => {
 
         {loading && (
           <span className="loading-animation">
-            <PropagateLoader color="#000" />
+            <BeatLoader color="#000" />
           </span>
         )}
 

@@ -66,20 +66,28 @@ const Persons = () => {
     };
   }, [searchTerm, debouncedSearch]);
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     setLoading(true);
-      getPersons(token, "", currentPage, limit).then((response) => {
-        const { results , totalPages} = response;
-        if (results) {
-          setTotalPages(totalPages);
-          setData(results);
-          setFilteredData(results);
+    getPersons(token, "", currentPage, limit).then((response) => {
+      const { results, totalPages } = response;
+      if (results) {
+        setTotalPages(totalPages);
+        setData(results);
+        setFilteredData(results);
+        scrollToTop();
 
-          setTimeout(() => {
-            setLoading(false);
-          }, 1500);
-        }
-      });
+        setTimeout(() => {
+          setLoading(false);
+        }, 1500);
+      }
+    });
   }, [token, currentPage, limit]);
 
   const handlePageChange = (newPage: number) => {
@@ -136,15 +144,15 @@ const Persons = () => {
             onChange={handleSearchTermChange}
           />
         </div>
-        
+
         {loading && (
-            <span className="loading-animation">
-              <PropagateLoader color="#000" />
-            </span>
-          )}
+          <span className="loading-animation">
+            <PropagateLoader color="#000" />
+          </span>
+        )}
 
         <div className="cards-container">
-          {filteredData  &&
+          {filteredData &&
             filteredData.map((person, index) => (
               <div
                 className={`card ${loading && "loading"}`}

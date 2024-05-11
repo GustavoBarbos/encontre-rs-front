@@ -18,7 +18,8 @@ const ModalFoundPerson = ({ foundPerson, onClose }: ModalFoundPersonProps) => {
         <h1>{foundPerson.name ?? "Sem nome"}</h1>
         <div className="columns-container">
           <div className="column">
-            {foundPerson.imageLink && <img src={foundPerson.imageLink} />}
+            {foundPerson.imageLink && <img src={foundPerson.imageLink} alt="Imagem da pessoa"
+             />}
           </div>
           <div className="column">
             <div>

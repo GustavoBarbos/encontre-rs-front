@@ -139,7 +139,7 @@ const Persons = () => {
         <div className="filter-container">
           <input
             type="text"
-            placeholder="Pesquisar por nome..."
+            placeholder="Pesquisar por nome ou características físicas..."
             value={searchTerm}
             onChange={handleSearchTermChange}
           />

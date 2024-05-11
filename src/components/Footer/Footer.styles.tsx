@@ -12,8 +12,8 @@ export const FooterContainer = styled.footer`
   p {
     margin: 0;
   }
-    
-    a:visited{
-        color: lightblue;
-    }
+
+  a {
+    color: lightblue;
+  }
 `;

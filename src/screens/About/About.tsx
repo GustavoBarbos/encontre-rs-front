@@ -3,6 +3,15 @@ import * as S from "./About.styles";
 const About = () => {
   return (
     <S.WarningsContainer>
+      <h1 id="important">IMPORTANTE! LEIA ATENTAMENTE!</h1>
+      <br/>
+      <h1>Como usar a plataforma?</h1>
+      <h4>
+        A plataforma é somente para pessoas e animais <b><u>ENCONTRADOS</u></b>.<br/>
+        Caso você esteja procurando alguém, use a tela de busca ou receba notificações do bot do telegram.<br/>
+        Navegue na busca ou cadastro de pessoas e animais utilizando o menu superior deste site.
+      </h4>
+
       <h1>O que é o Encontre RS?</h1>
       <h4>
         O Encontre RS é a tentativa de dois desenvolvedores de software,{" "}

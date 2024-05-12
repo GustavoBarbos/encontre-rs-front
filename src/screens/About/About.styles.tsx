@@ -18,4 +18,8 @@ export const WarningsContainer = styled.div`
         font-weight: normal;
         margin-bottom: 3rem;
     }
+
+    #important {
+      color: red;
+    }
 `;

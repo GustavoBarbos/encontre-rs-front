@@ -50,17 +50,17 @@ const HeaderResponsive = () => {
 
       <div className={`sidebar ${isOpen && "sidebar-open"} `}>
         <button onClick={() => redirectTo("/")}>Sobre</button>
-        <button onClick={() => redirectTo("/found-person")}>Pessoas</button>
-        <button onClick={() => redirectTo("/found-animal")}>Animais</button>
+        <button onClick={() => redirectTo("/found-person")}>Encontre Pessoas</button>
+        <button onClick={() => redirectTo("/found-animal")}>Encontre Animais</button>
         <button
             onClick={() => redirectTo(isLogged ? "/register-person" : "/login")}
         >
-          Cadastrar Pessoa
+          Cadastre Pessoas
         </button>
         <button
             onClick={() => redirectTo(isLogged ? "/register-animal" : "/login")}
         >
-          Cadastrar Animal
+          Cadastre Animais
         </button>
 
         {isLogged && (

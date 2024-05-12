@@ -4,3 +4,4 @@ export { default as About } from "./About/About";
 export { default as Login } from "./Login/Login";
 export { default as NotFound } from "./NotFound/NotFound";
 export { default as Animals } from "./Animals/Animals";
+export { default as RegisterAnimal } from "./RegisterAnimal/RegisterAnimal";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { NotFound, Persons, RegisterPerson, About, Login, Animals } from "./screens";
+import {NotFound, Persons, RegisterPerson, About, Login, Animals, RegisterAnimal} from "./screens";
 import { Footer, HeaderResponsive } from "./components";
 import * as S from "./App.styles";
 
@@ -31,7 +31,10 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<About />} />
             {isLogged && (
-              <Route path="/register-person" element={<RegisterPerson />} />
+                <Route path="/register-person" element={<RegisterPerson />} />
+            )}
+            {isLogged && (
+                <Route path="/register-animal" element={<RegisterAnimal />} />
             )}
             <Route path="/login" element={<Login />} />
             <Route path="/found-person" element={<Persons />} />

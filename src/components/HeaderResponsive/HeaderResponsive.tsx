@@ -55,7 +55,12 @@ const HeaderResponsive = () => {
         <button
             onClick={() => redirectTo(isLogged ? "/register-person" : "/login")}
         >
-          Cadastrar pessoa
+          Cadastrar Pessoa
+        </button>
+        <button
+            onClick={() => redirectTo(isLogged ? "/register-animal" : "/login")}
+        >
+          Cadastrar Animal
         </button>
 
         {isLogged && (

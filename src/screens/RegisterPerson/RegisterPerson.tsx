@@ -1,25 +1,31 @@
 import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { createFoundPerson } from "../../actions/post";
 import { IUserState } from "@/interfaces/i-user";
 import { IPersonRequest } from "@/interfaces/i-person-found";
 import * as S from "./RegisterPerson.styles";
 import compressImage from "../../functions/compressImage";
+import validateFileType from "../../functions/validateFileType";
+import { useAlert } from 'react-alert'
 
 const RegisterPerson = () => {
+  const alert = useAlert();
   const [loading, setLoading] = useState(false);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
   const fileRef = useRef<File>();
   const { token } = useSelector((state: IUserState) => state.auth);
 
-  const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+
+      if(!validateFileType(file.type)) {
+        alert.error("Formato invalido de imagem.");
+      }
+
       fileRef.current = file;
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -45,7 +51,9 @@ const RegisterPerson = () => {
 
       await createFoundPerson(user, token);
       reset();
-      navigate("/found-person");
+      fileRef.current = undefined;
+      setImagePreviewUrl(null);
+      alert.success("Pessoa cadastrada com sucesso.");
     } catch (error) {
       console.log(error);
     } finally {

@@ -32,7 +32,7 @@ const ModalFoundPerson = ({ foundPerson, onClose }: ModalFoundPersonProps) => {
             <div>
               <label htmlFor="contact">Contato:</label>
               <div id="contact" className="input">
-                {`${foundPerson.foundBy.email} ${foundPerson.foundBy.contacts}`}
+                {`${foundPerson.foundBy.email} ${foundPerson.foundBy.contacts ?? ''}`}
               </div>
             </div>
           </div>

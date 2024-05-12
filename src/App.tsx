@@ -29,13 +29,13 @@ const App: React.FC = () => {
         <HeaderResponsive />
         <div style={{ marginTop: "72px" }}>
           <Routes>
-            <Route path="/" element={<Persons />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/" element={<About />} />
             {isLogged && (
               <Route path="/register-person" element={<RegisterPerson />} />
             )}
             <Route path="/login" element={<Login />} />
-            <Route path="/:id" element={<Persons />} />
+            <Route path="/found-person" element={<Persons />} />
+            <Route path="/found-person/:id" element={<Persons />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

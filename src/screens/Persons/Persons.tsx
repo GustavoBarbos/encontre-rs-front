@@ -157,7 +157,7 @@ const Persons = () => {
               <div
                 className={`card ${loading && "loading"}`}
                 key={index}
-                onClick={() => navigate(`/${person.id}`)}
+                onClick={() => navigate(`/found-person/${person.id}`)}
               >
                 <div className="card-header">
                   <h2>{person.name}</h2>

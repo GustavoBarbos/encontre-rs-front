@@ -15,14 +15,14 @@ const About = () => {
         </a>{" "}
         e um grande amigo que preferiu ficar anônimo, de ajudar na grande
         tragédia que aconteceu no Rio Grande do Sul.
-        <br />O sistema funcionca como um "Google" de pessoas encontradas,
-        possibilitando que os abrigos cadastrem pessoas que foram resgatadas
-        para que os parentes as encontrem.
+        <br />O sistema funcionca como um "Google" de pessoas e animais encontrados,
+        possibilitando que os abrigos cadastrem pessoas e animais que foram resgatados
+        para que os parentes ou donos os encontrem.
       </h4>
 
       <h1>Notificações no Telegram</h1>
       <h4>
-        Para ajudar você a saber quando uma nova pessoa é cadastrada na
+        Para ajudar você a saber quando uma nova pessoa ou animal é cadastrado na
         plataforma nós desenvolvemos um bot do Telegram.
         <br />
         Para utilizá-lo basta criar uma conta no Telegram e{" "}

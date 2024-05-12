@@ -4,32 +4,32 @@ import { BeatLoader } from "react-spinners";
 import debounce from "lodash.debounce";
 import { useNavigate, useParams } from "react-router-dom";
 import { IUserState } from "@/interfaces/i-user";
-import { IPersonFound } from "@/interfaces/i-person-found";
 import { Modal } from "../../components";
-import { getPersonById, getPersons } from "../../actions/get";
-import { ModalFoundPerson } from "./components";
-import * as S from "./Persons.styles";
+import { ModalFoundAnimal } from "./components";
+import * as S from "./Animals.styles";
+import {IAnimalFound} from "@/interfaces/i-animal-found";
+import {getAnimalById, getAnimals} from "../../actions/get";
 
-const Persons = () => {
+const Animals = () => {
   const token = useSelector((state: IUserState) => state.auth.token);
   const { id: personId } = useParams();
 
-  const [data, setData] = useState<IPersonFound[]>([]);
+  const [data, setData] = useState<IAnimalFound[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredData, setFilteredData] = useState<IPersonFound[] | null>(null);
+  const [filteredData, setFilteredData] = useState<IAnimalFound[] | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [limit] = useState(10);
   const [modalOpen, setModalOpen] = useState(false);
-  const [foundPerson, setFoundPerson] = useState<IPersonFound>();
+  const [foundAnimal, setFoundAnimal] = useState<IAnimalFound>();
 
   const navigate = useNavigate();
 
-  const fetchPersons = useCallback(
+  const fetchAnimals = useCallback(
     async (term: string) => {
-      const response = await getPersons(token, term, currentPage, limit);
+      const response = await getAnimals(token, term, currentPage, limit);
       const { results, totalPages } = response;
       if (results) {
         setTotalPages(totalPages);
@@ -43,14 +43,15 @@ const Persons = () => {
     () =>
       debounce((term: string) => {
         setLoading(true);
-        setTimeout(() => setLoading(false), 1500);
+        setTimeout(() => { setLoading(false); }, 1500);
         if (term.trim() !== "") {
-          fetchPersons(term);
+          fetchAnimals(term);
         } else {
           setFilteredData(data);
         }
+
       }, 500),
-    [fetchPersons, data]
+    [fetchAnimals, data]
   );
 
   const handleSearchTermChange = useCallback(
@@ -77,7 +78,7 @@ const Persons = () => {
 
   useEffect(() => {
     setLoading(true);
-    getPersons(token, "", currentPage, limit).then((response) => {
+    getAnimals(token, "", currentPage, limit).then((response) => {
       const { results, totalPages } = response;
       if (results) {
         setTotalPages(totalPages);
@@ -98,9 +99,9 @@ const Persons = () => {
 
   useEffect(() => {
     if (personId) {
-      getPersonById(personId).then((response) => {
+      getAnimalById(personId).then((response) => {
         if (response.imageLink) {
-          setFoundPerson(response);
+          setFoundAnimal(response);
           setModalOpen(true);
         }
       });
@@ -108,7 +109,7 @@ const Persons = () => {
   }, [personId]);
 
   const handleClose = () => {
-    navigate("/found-person");
+    navigate("/found-animal");
     setModalOpen(false);
   };
 
@@ -119,7 +120,7 @@ const Persons = () => {
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <S.ContainerModal>
           <p>
-            Para procurar alguém digite seu nome ou características físicas.
+            Para procurar algum animal digite sua espécie, nome ou características físicas.
             <br />
             Para procurar uma frase completa, coloque a frase entre aspas.{" "}
             <br />
@@ -128,20 +129,20 @@ const Persons = () => {
             <br />
             <b>EXEMPLO:</b>
             <br />
-            pedro "olhos azuis" -loiro
+            gato "rabo curto" -laranja
           </p>
         </S.ContainerModal>
       </Modal>
 
       <S.PersonsContainer>
-        <h2>Pesquise uma pessoa</h2>
+        <h2>Pesquise um animal</h2>
         <p className="help-text" onClick={() => setIsOpen(true)}>
           Como pesquisar?
         </p>
         <div className="filter-container">
           <input
             type="text"
-            placeholder="Pesquisar por nome ou características físicas..."
+            placeholder="Pesquisar por espécie, nome ou características físicas..."
             value={searchTerm}
             onChange={handleSearchTermChange}
           />
@@ -155,15 +156,15 @@ const Persons = () => {
 
         <div className="cards-container">
           {filteredData &&
-            filteredData.map((person, index) => (
+            filteredData.map((animal, index) => (
               <div
                 className={`card ${loading && "loading"}`}
                 key={index}
-                onClick={() => navigate(`/found-person/${person.id}`)}
+                onClick={() => navigate(`/found-animal/${animal.id}`)}
               >
                 <div className="card-header">
-                  <h2>{person.name}</h2>
-                  <img src={person?.imageLink} alt="Person" />
+                  <h3>{animal.animalType} { animal.name.length > 0 && ` - ${animal.name}`}</h3>
+                  <img src={animal?.imageLink} alt="Person" />
                 </div>
               </div>
             ))}
@@ -192,10 +193,10 @@ const Persons = () => {
         </button>
       </div>
       {modalOpen && (
-        <ModalFoundPerson foundPerson={foundPerson} onClose={handleClose} />
+        <ModalFoundAnimal foundAnimal={foundAnimal} onClose={handleClose} />
       )}
     </S.ContainerOutside>
   );
 };
 
-export default Persons;
+export default Animals;

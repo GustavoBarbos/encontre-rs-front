@@ -1,15 +1,28 @@
 import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { createFoundPerson } from "../../actions/post";
 import { IUserState } from "@/interfaces/i-user";
-import { IPersonRequest } from "@/interfaces/i-person-found";
-import * as S from "./RegisterPerson.styles";
+import { IAnimalRequest } from "@/interfaces/i-animal-found";
+import * as S from "./RegisterAnimal.styles";
 import compressImage from "../../functions/compressImage";
 import validateFileType from "../../functions/validateFileType";
 import { useAlert } from 'react-alert'
+import {createFoundAnimal} from '../../actions/post';
 
-const RegisterPerson = () => {
+const animalTypes = [
+  'Cachorro',
+  'Calopsita',
+  'Cavalo',
+  'Furão',
+  'Gato',
+  'Hamster',
+  'Papagaio',
+  'Porco',
+  'Twister',
+  'Outros'
+]
+
+const RegisterAnimal = () => {
   const alert = useAlert();
   const [loading, setLoading] = useState(false);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
@@ -43,17 +56,18 @@ const RegisterPerson = () => {
         compressedFile = await compressImage(fileRef.current);
       }
 
-      const user: IPersonRequest = {
+      const animal: IAnimalRequest = {
         name: data.name,
         description: data.description,
+        animalType: data.animalType,
         image: compressedFile,
       };
 
-      await createFoundPerson(user, token);
+      await createFoundAnimal(animal, token);
       reset();
       fileRef.current = undefined;
       setImagePreviewUrl(null);
-      alert.success("Pessoa cadastrada com sucesso.");
+      alert.success("Animal cadastrado com sucesso.");
     } catch (error) {
       console.error(error);
     } finally {
@@ -65,8 +79,8 @@ const RegisterPerson = () => {
     <S.RegisterPersonContainer>
       <div className="warning">
         <p>
-          <strong>ATENÇÃO:</strong> Em respeito a familia das vitimas, poste
-          somente <strong>PESSOAS VIVAS</strong> na plataforma.
+          <strong>ATENÇÃO:</strong> Em respeito aos donos dos pets, poste
+          somente <strong>ANIMAIS VIVOS</strong> na plataforma.
         </p>
       </div>
 
@@ -103,33 +117,42 @@ const RegisterPerson = () => {
 
           <div>
             <div>
-              <label htmlFor="name">Nome completo:</label>
+              <label htmlFor="animalType">Tipo do Animal:</label>
+              <select
+                  id="animalType"
+                  {...register("animalType")}
+              >
+                {animalTypes.map(at => <option value={at.toUpperCase()}>{at}</option>)}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="name">Nome do animal (se tiver):</label>
               <input
-                type="text"
-                id="name"
-                {...register("name")}
-                placeholder="Caso não saiba o nome da pessoa, deixe em branco"
+                  type="text"
+                  id="name"
+                  {...register("name")}
+                  placeholder="Caso não saiba o nome da pessoa, deixe em branco"
               />
             </div>
             <div className="description">
               <label htmlFor="description">
-                Características físicas dessa pessoa:
+                Características físicas do animal:
               </label>
               <textarea
-                id="description"
-                {...register("description")}
-                placeholder="Descreva essa pessoa o máximo possível para ajudar na busca..."
+                  id="description"
+                  {...register("description")}
+                  placeholder="Descreva esse animal o máximo possível para ajudar na busca..."
               />
             </div>
           </div>
         </div>
 
         <button className="register-button" type="submit">
-          {loading ? "Registrando..." : "Cadastrar pessoa"}
+          {loading ? "Registrando..." : "Cadastrar animal"}
         </button>
       </form>
     </S.RegisterPersonContainer>
   );
 };
 
-export default RegisterPerson;
+export default RegisterAnimal;

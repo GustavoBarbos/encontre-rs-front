@@ -49,24 +49,30 @@ const HeaderResponsive = () => {
       </div>
 
       <div className={`sidebar ${isOpen && "sidebar-open"} `}>
-        <button onClick={() => redirectTo("/about")}>Sobre</button>
-        <button onClick={() => redirectTo("/")}>Pessoas</button>
+        <button onClick={() => redirectTo("/")}>Sobre</button>
+        <button onClick={() => redirectTo("/found-person")}>Pessoas</button>
+        <button onClick={() => redirectTo("/found-animal")}>Animais</button>
         <button
-          onClick={() => redirectTo(isLogged ? "/register-person" : "/login")}
+            onClick={() => redirectTo(isLogged ? "/register-person" : "/login")}
         >
-          Cadastrar pessoa
+          Cadastrar Pessoa
+        </button>
+        <button
+            onClick={() => redirectTo(isLogged ? "/register-animal" : "/login")}
+        >
+          Cadastrar Animal
         </button>
 
         {isLogged && (
-          <button className="logout" onClick={handleLogout}>
-            Logout
-          </button>
+            <button className="logout" onClick={handleLogout}>
+              Logout
+            </button>
         )}
       </div>
 
       <div
-        className={`overlay ${isOpen && "overlay-open"}`}
-        onClick={toggleSidebar}
+          className={`overlay ${isOpen && "overlay-open"}`}
+          onClick={toggleSidebar}
       />
     </S.HeaderContainer>
   );

@@ -42,6 +42,8 @@ const Persons = () => {
   const debouncedSearch = useMemo(
     () =>
       debounce((term: string) => {
+        setLoading(true);
+        setTimeout(() => setLoading(false), 1500);
         if (term.trim() !== "") {
           fetchPersons(term);
         } else {
@@ -106,7 +108,7 @@ const Persons = () => {
   }, [personId]);
 
   const handleClose = () => {
-    navigate("/");
+    navigate("/found-person");
     setModalOpen(false);
   };
 

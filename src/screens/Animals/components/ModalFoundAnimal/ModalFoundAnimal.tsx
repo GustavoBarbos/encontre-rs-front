@@ -26,7 +26,7 @@ const ModalFoundAnimal = ({ foundAnimal, onClose }: ModalFoundAnimalProps) => {
             <div>
               <label htmlFor="name">Nome:</label>
               <div id="name" className="input">
-                {foundAnimal.name ?? "Sem nome"}
+                {foundAnimal.name.length > 0 ? foundAnimal.name : "Sem nome"}
               </div>
             </div>
             <div>

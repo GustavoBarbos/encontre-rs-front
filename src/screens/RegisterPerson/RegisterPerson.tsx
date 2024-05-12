@@ -45,7 +45,7 @@ const RegisterPerson = () => {
 
       await createFoundPerson(user, token);
       reset();
-      navigate("/");
+      navigate("/found-person");
     } catch (error) {
       console.log(error);
     } finally {

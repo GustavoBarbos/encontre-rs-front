@@ -27,7 +27,7 @@ const Animals = () => {
 
   const navigate = useNavigate();
 
-  const fetchPersons = useCallback(
+  const fetchAnimals = useCallback(
     async (term: string) => {
       const response = await getAnimals(token, term, currentPage, limit);
       const { results, totalPages } = response;
@@ -42,13 +42,16 @@ const Animals = () => {
   const debouncedSearch = useMemo(
     () =>
       debounce((term: string) => {
+        setLoading(true);
+        setTimeout(() => { setLoading(false); }, 1500);
         if (term.trim() !== "") {
-          fetchPersons(term);
+          fetchAnimals(term);
         } else {
           setFilteredData(data);
         }
+
       }, 500),
-    [fetchPersons, data]
+    [fetchAnimals, data]
   );
 
   const handleSearchTermChange = useCallback(
@@ -106,7 +109,7 @@ const Animals = () => {
   }, [personId]);
 
   const handleClose = () => {
-    navigate("/");
+    navigate("/found-animal");
     setModalOpen(false);
   };
 
@@ -160,7 +163,7 @@ const Animals = () => {
                 onClick={() => navigate(`/found-animal/${animal.id}`)}
               >
                 <div className="card-header">
-                  <h3>{animal.animalType} {animal.name.length && ` - ${animal.name}`}</h3>
+                  <h3>{animal.animalType} { animal.name.length > 0 && ` - ${animal.name}`}</h3>
                   <img src={animal?.imageLink} alt="Person" />
                 </div>
               </div>

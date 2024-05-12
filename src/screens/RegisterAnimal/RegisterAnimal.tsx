@@ -9,6 +9,19 @@ import validateFileType from "../../functions/validateFileType";
 import { useAlert } from 'react-alert'
 import {createFoundAnimal} from '../../actions/post';
 
+const animalTypes = [
+  'Cachorro',
+  'Calopsita',
+  'Cavalo',
+  'Furão',
+  'Gato',
+  'Hamster',
+  'Papagaio',
+  'Porco',
+  'Twister',
+  'Outros'
+]
+
 const RegisterAnimal = () => {
   const alert = useAlert();
   const [loading, setLoading] = useState(false);
@@ -109,8 +122,7 @@ const RegisterAnimal = () => {
                   id="animalType"
                   {...register("animalType")}
               >
-                <option value="CACHORRO">Cachorro</option>
-                <option value="GATO">Gato</option>
+                {animalTypes.map(at => <option value={at.toUpperCase()}>{at}</option>)}
               </select>
             </div>
             <div>
